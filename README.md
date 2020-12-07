@@ -1,4 +1,11 @@
 # route-attribute-provider
+[![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2Fjerowork%2Froute-attribute-provider%2Fbadge%3Fref%3Dmain&style=flat-square)](https://github.com/jerowork/route-attribute-provider/actions)
+[![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/jerowork/route-attribute-provider.svg?style=flat-square)](https://scrutinizer-ci.com/g/jerowork/route-attribute-provider/code-structure)
+[![Quality Score](https://img.shields.io/scrutinizer/g/jerowork/route-attribute-provider.svg?style=flat-square)](https://scrutinizer-ci.com/g/jerowork/route-attribute-provider)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
+[![Packagist Version](https://img.shields.io/packagist/v/jerowork/route-attribute-provider.svg?style=flat-square&include_prereleases)](https://packagist.org/packages/jerowork/route-attribute-provider)
+[![PHP Version](https://img.shields.io/badge/php-%5E8.0-8892BF.svg?style=flat-square)](http://www.php.net)
+
 Define routes by PHP8 [attributes]((https://stitcher.io/blog/attributes-in-php-8)).
 
 ## Installation
