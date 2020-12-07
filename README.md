@@ -20,7 +20,7 @@ In order to use route attributes, pick any of the existing framework implementat
 ### Existing implementations
 - [jerowork/slim-route-attribute-provider](https://github.com/jerowork/slim-route-attribute-provider) for [Slim](https://www.slimframework.com)
 
-Or check [packagist](https://packagist.org/providers/psr/container-implementation) for any other implementations.
+Or check [packagist](https://packagist.org/providers/jerowork/route-attribute-provider-implementation) for any other implementations.
 
 ### Custom implementation
 Create a custom implementation by using `RouteAttributeProviderInterface`.
