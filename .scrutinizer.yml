@@ -1,0 +1,28 @@
+filter:
+    paths:
+        - src/*
+    excluded_paths:
+        - tests/*
+build:
+    environment:
+        php:
+            version: 8.0
+    nodes:
+        analysis:
+            project_setup:
+                override:
+                    - 'true'
+            dependencies:
+                after:
+                    - command: wget -O phive.phar https://phar.io/releases/phive.phar
+                    - command: php phive.phar install --force-accept-unsigned --trust-gpg-keys 4AA394086372C20A,CF1A108D0E7AE720,8A03EA3B385DBAA1,31C7E470E2138192
+            tests:
+                override:
+                    - php-scrutinizer-run
+                    - command: tools/phpunit --coverage-clover=coverage.clover
+                    - command: wget https://scrutinizer-ci.com/ocular.phar
+                    - command: php ocular.phar code-coverage:upload --format=php-clover coverage.clover
+checks:
+    php: true
+tools:
+    external_code_coverage: true
