@@ -1,0 +1,33 @@
+{
+    "name": "jerowork/route-attribute-provider",
+    "type": "project",
+    "description": "Define routes by PHP8 attributes",
+    "keywords": [
+        "php8",
+        "attributes",
+        "router"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jeroen de Graaf",
+            "email": "hello@jero.work"
+        }
+    ],
+    "require": {
+        "php": "^8.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Jerowork\\RouteAttributeProvider\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Jerowork\\RouteAttributeProvider\\Test\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "mockery/mockery": "^1.4"
+    }
+}
