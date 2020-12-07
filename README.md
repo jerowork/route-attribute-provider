@@ -11,7 +11,7 @@ $ composer require jerowork/route-attribute-provider
 In order to use route attributes, pick any of the existing framework implementations or create a custom one.
 
 ### Existing implementations
-- [jerowork/slim-route-attribute-provider](http://) for [Slim](https://www.slimframework.com)
+- [jerowork/slim-route-attribute-provider](https://github.com/jerowork/slim-route-attribute-provider) for [Slim](https://www.slimframework.com)
 
 Or check [packagist](https://packagist.org/providers/psr/container-implementation) for any other implementations.
 
