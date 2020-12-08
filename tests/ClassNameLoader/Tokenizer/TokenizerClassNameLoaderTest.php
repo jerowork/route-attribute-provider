@@ -20,10 +20,10 @@ final class TokenizerClassNameLoaderTest extends TestCase
 
         $this->assertSame(
             [
-                StubClass4::class,
-                StubClass3::class,
                 StubClass::class,
                 StubClass2::class,
+                StubClass3::class,
+                StubClass4::class,
             ],
             iterator_to_array($classNames)
         );

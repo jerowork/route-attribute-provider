@@ -23,6 +23,7 @@ final class DirectoryIteratorPhpFileFinder implements PhpFileFinderInterface
             RecursiveRegexIterator::GET_MATCH
         );
 
+        $filePaths = [];
         foreach ($filesIterator as $filePath) {
             $filePath = $filePath[0] ?? null;
 
@@ -30,7 +31,11 @@ final class DirectoryIteratorPhpFileFinder implements PhpFileFinderInterface
                 continue;
             }
 
-            yield $filePath;
+            $filePaths[] =  $filePath;
         }
+
+        sort($filePaths);
+
+        yield from $filePaths;
     }
 }
