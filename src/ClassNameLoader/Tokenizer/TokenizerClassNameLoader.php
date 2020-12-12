@@ -8,6 +8,7 @@ use Generator;
 use Jerowork\RouteAttributeProvider\Finder\DirectoryIterator\DirectoryIteratorPhpFileFinder;
 use Jerowork\RouteAttributeProvider\Finder\PhpFileFinderInterface;
 use Jerowork\RouteAttributeProvider\ClassNameLoader\ClassNameLoaderInterface;
+use PhpToken;
 
 final class TokenizerClassNameLoader implements ClassNameLoaderInterface
 {
@@ -34,25 +35,26 @@ final class TokenizerClassNameLoader implements ClassNameLoaderInterface
 
     private function loadFromFilePath(string $filePath): ?string
     {
-        $tokens     = token_get_all((string) file_get_contents($filePath));
+        /** @var PhpToken[] $tokens */
+        $tokens     = PhpToken::tokenize((string) file_get_contents($filePath));
         $tokenCount = count($tokens);
 
         $className = [];
         for ($i = 0; $i < $tokenCount; $i++) {
             // namespace (only once, no use imports)
-            if ($tokens[$i][0] === T_NAME_QUALIFIED && count($className) === 0) {
-                $className[] = $tokens[$i][1];
+            if ($tokens[$i]->id === T_NAME_QUALIFIED && count($className) === 0) {
+                $className[] = $tokens[$i]->text;
             }
 
             // class name
             if (
                 isset($tokens[$i - 2]) === true &&
                 isset($tokens[$i - 1]) === true &&
-                $tokens[$i - 2][0] === T_CLASS &&
-                $tokens[$i - 1][0] === T_WHITESPACE &&
-                $tokens[$i][0] === T_STRING
+                $tokens[$i - 2]->id === T_CLASS &&
+                $tokens[$i - 1]->id === T_WHITESPACE &&
+                $tokens[$i]->id === T_STRING
             ) {
-                $className[] = $tokens[$i][1];
+                $className[] = $tokens[$i]->text;
 
                 return implode('\\', $className);
             }
