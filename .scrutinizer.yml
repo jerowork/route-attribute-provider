@@ -22,8 +22,7 @@ build:
                 override:
                     - php-scrutinizer-run
                     - command: tools/phpunit --coverage-clover=coverage.clover
-                    - command: wget https://scrutinizer-ci.com/ocular.phar
-                    - command: php ocular.phar code-coverage:upload --format=php-clover coverage.clover
+                    - command: vendor/bin/ocular code-coverage:upload --format=php-clover coverage.clover
 checks:
     php: true
 tools:
