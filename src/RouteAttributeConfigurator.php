@@ -15,6 +15,11 @@ final class RouteAttributeConfigurator
     private ClassNameLoaderInterface $classNameLoader;
     private RouteLoaderInterface $routeLoader;
 
+    /**
+     * @var string[] $directories
+     */
+    private array $directories;
+
     public function __construct(
         RouteAttributeProviderInterface $routeAttributeProvider,
         ?ClassNameLoaderInterface $classNameLoader = null,
@@ -23,11 +28,21 @@ final class RouteAttributeConfigurator
         $this->routeAttributeProvider = $routeAttributeProvider;
         $this->classNameLoader        = $classNameLoader ?? new TokenizerClassNameLoader();
         $this->routeLoader            = $routeLoader ?? new ReflectionRouteLoader();
+        $this->directories            = [];
     }
 
-    public function configure(string ...$directories): void
+    public function addDirectory(string ...$directories): self
     {
         foreach ($directories as $directory) {
+            $this->directories[] = $directory;
+        }
+
+        return $this;
+    }
+
+    public function configure(): void
+    {
+        foreach ($this->directories as $directory) {
             foreach ($this->classNameLoader->load($directory) as $className) {
                 $this->configureForClassName($className);
             }

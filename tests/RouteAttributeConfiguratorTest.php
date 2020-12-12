@@ -82,6 +82,6 @@ final class RouteAttributeConfiguratorTest extends MockeryTestCase
                 })
             );
 
-        $configurator->configure(__DIR__.'/resources');
+        $configurator->addDirectory(__DIR__.'/resources')->configure();
     }
 }

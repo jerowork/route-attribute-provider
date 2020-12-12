@@ -15,7 +15,56 @@ $ composer require jerowork/route-attribute-provider
 ```
 
 ## Configuration
-In order to use route attributes, pick any of the existing framework implementations or create a custom one.
+In order to use route attributes, pick any of the [existing framework implementations](http://) or create a custom one.
+
+Instantiate `RouteAttributeConfigurator` somewhere close to the construction of your application,
+e.g. in your front controller (or ideally register in your PSR-11 container).
+
+Basic configuration:
+```php
+use Jerowork\RouteAttributeProvider\RouteAttributeConfigurator;
+
+// ...
+
+$routeConfigurator = new RouteAttributeConfigurator(
+    new CustomRouteProvider($router)  // Implementation of your choice
+);
+
+$routeConfigurator
+    ->addDirectory(sprintf('%s/src/Infrastructure/Api/Http/Action', __DIR__))
+    ->configure();
+
+// ...
+```
+
+Extended configuration:
+```php
+use Jerowork\RouteAttributeProvider\ClassNameLoader\Tokenizer\TokenizerClassNameLoader;
+use Jerowork\RouteAttributeProvider\Finder\DirectoryIterator\DirectoryIteratorPhpFileFinder;
+use Jerowork\RouteAttributeProvider\RouteAttributeConfigurator;
+use Jerowork\RouteAttributeProvider\RouteLoader\Reflection\ReflectionRouteLoader;
+
+// ...
+
+// All parts of the configurator can be replaced with a custom implementation
+$routeConfigurator = new RouteAttributeConfigurator(
+    new CustomRouteProvider($router), // Implementation of your choice
+    new TokenizerClassNameLoader(
+        new DirectoryIteratorPhpFileFinder()
+    ),
+    new ReflectionRouteLoader()
+);
+
+// Multiple directories can be defined
+$routeConfigurator
+    ->addDirectory(
+        sprintf('%s/src/Infrastructure/Api/Http/Action', __DIR__),
+        sprintf('%s/src/Other/Controller', __DIR__)
+    )
+    ->configure();
+
+// ...
+```
 
 ### Existing implementations
 - [jerowork/slim-route-attribute-provider](https://github.com/jerowork/slim-route-attribute-provider) for [Slim](https://www.slimframework.com)
@@ -54,23 +103,6 @@ final class CustomRouteProvider implements RouteAttributeProviderInterface
         }
     }
 }
-```
-
-Instantiate `RouteAttributeConfigurator` somewhere close to the construction of your application,
-e.g. in your front controller (or ideally register in your PSR-11 container).
-
-```php
-use Jerowork\RouteAttributeProvider\RouteAttributeConfigurator;
-
-// ...
-
-$routeConfigurator = new RouteAttributeConfigurator(
-    new CustomRouteProvider($router)
-);
-
-$routeConfigurator->configure(sprintf('%s/src/Infrastructure/Api/Http/Action', __DIR__));
-
-// ...
 ```
 
 ## Usage
