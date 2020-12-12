@@ -8,15 +8,11 @@ use Jerowork\RouteAttributeProvider\Api\Route;
 
 final class LoadedRoute
 {
-    private string $className;
-    private string $methodName;
-    private Route $route;
-
-    public function __construct(string $className, string $methodName, Route $route)
-    {
-        $this->className  = $className;
-        $this->methodName = $methodName;
-        $this->route      = $route;
+    public function __construct(
+        private string $className,
+        private string $methodName,
+        private Route $route
+    ) {
     }
 
     public function getClassName(): string
