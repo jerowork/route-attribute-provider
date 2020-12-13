@@ -7,12 +7,14 @@ namespace Jerowork\RouteAttributeProvider\Test;
 use Jerowork\RouteAttributeProvider\Api\Route;
 use Jerowork\RouteAttributeProvider\RouteAttributeConfigurator;
 use Jerowork\RouteAttributeProvider\RouteAttributeProviderInterface;
+use Jerowork\RouteAttributeProvider\RouteLoader\Cache\CacheRouteLoaderDecorator;
 use Jerowork\RouteAttributeProvider\Test\resources\directory\StubClass3;
 use Jerowork\RouteAttributeProvider\Test\resources\directory\sub\StubClass4;
 use Jerowork\RouteAttributeProvider\Test\resources\StubClass;
 use Jerowork\RouteAttributeProvider\Test\resources\StubClass2;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
+use Psr\SimpleCache\CacheInterface;
 
 final class RouteAttributeConfiguratorTest extends MockeryTestCase
 {
@@ -83,5 +85,25 @@ final class RouteAttributeConfiguratorTest extends MockeryTestCase
             );
 
         $configurator->addDirectory(__DIR__.'/resources')->configure();
+    }
+
+    public function testItShouldHaveDisabledCacheByDefault(): void
+    {
+        $configurator = new RouteAttributeConfigurator(
+            Mockery::mock(RouteAttributeProviderInterface::class)
+        );
+
+        $this->assertNotInstanceOf(CacheRouteLoaderDecorator::class, $configurator->getRouteLoader());
+    }
+
+    public function testItShouldEnableCache(): void
+    {
+        $configurator = new RouteAttributeConfigurator(
+            Mockery::mock(RouteAttributeProviderInterface::class)
+        );
+
+        $configurator->enableCache(Mockery::mock(CacheInterface::class));
+
+        $this->assertInstanceOf(CacheRouteLoaderDecorator::class, $configurator->getRouteLoader());
     }
 }

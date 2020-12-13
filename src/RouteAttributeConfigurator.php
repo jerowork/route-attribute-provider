@@ -6,8 +6,10 @@ namespace Jerowork\RouteAttributeProvider;
 
 use Jerowork\RouteAttributeProvider\ClassNameLoader\ClassNameLoaderInterface;
 use Jerowork\RouteAttributeProvider\ClassNameLoader\Tokenizer\TokenizerClassNameLoader;
+use Jerowork\RouteAttributeProvider\RouteLoader\Cache\CacheRouteLoaderDecorator;
 use Jerowork\RouteAttributeProvider\RouteLoader\Reflection\ReflectionRouteLoader;
 use Jerowork\RouteAttributeProvider\RouteLoader\RouteLoaderInterface;
+use Psr\SimpleCache\CacheInterface;
 
 final class RouteAttributeConfigurator
 {
@@ -40,6 +42,13 @@ final class RouteAttributeConfigurator
         return $this;
     }
 
+    public function enableCache(CacheInterface $cache): self
+    {
+        $this->routeLoader = new CacheRouteLoaderDecorator($this->routeLoader, $cache);
+
+        return $this;
+    }
+
     public function configure(): void
     {
         foreach ($this->directories as $directory) {
@@ -47,6 +56,11 @@ final class RouteAttributeConfigurator
                 $this->configureForClassName($className);
             }
         }
+    }
+
+    public function getRouteLoader(): RouteLoaderInterface
+    {
+        return $this->routeLoader;
     }
 
     /**
