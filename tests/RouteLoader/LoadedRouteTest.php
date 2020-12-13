@@ -38,4 +38,19 @@ final class LoadedRouteTest extends TestCase
             'route'      => $route->jsonSerialize(),
         ], $loadedRoute->jsonSerialize());
     }
+
+    public function testItShouldConstructFromPayload(): void
+    {
+        $route = new Route('/');
+
+        $loadedRoute = LoadedRoute::fromPayload([
+            'className'  => stdClass::class,
+            'methodName' => '__invoke',
+            'route'      => $route->jsonSerialize(),
+        ]);
+
+        $this->assertSame(stdClass::class, $loadedRoute->getClassName());
+        $this->assertSame('__invoke', $loadedRoute->getMethodName());
+        $this->assertEquals($route, $loadedRoute->getRoute());
+    }
 }
