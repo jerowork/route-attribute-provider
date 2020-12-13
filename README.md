@@ -105,6 +105,26 @@ final class CustomRouteProvider implements RouteAttributeProviderInterface
 }
 ```
 
+### Cache
+By default, caching of route attributes is disabled. This is fine for a development environment.
+
+However, for a production environment you should use a more efficient way of route attribute loading.
+Therefore you can use any [PSR-16](https://www.php-fig.org/psr/psr-16) cache implementation.
+
+```php
+use Symfony\Component\Cache\Adapter\ApcuAdapter;
+use Symfony\Component\Cache\Psr16Cache;
+
+// ...
+
+// Enable route attribute caching with any PSR-16 implementation (e.g. symfony/cache)
+$routeConfigurator->enableCache(new Psr16Cache(new ApcuAdapter()));
+
+// ...
+```
+
+**Note:** Any PSR-6 cache implementation can be used too, by using Symfony's [PSR-6 to PSR-16 adapter](https://symfony.com/doc/current/components/cache/psr6_psr16_adapters.html).
+
 ## Usage
 A route can be defined via PHP8 attributes.
 
