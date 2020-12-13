@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace Jerowork\RouteAttributeProvider\RouteLoader;
 
 use Jerowork\RouteAttributeProvider\Api\Route;
+use JsonSerializable;
 
-final class LoadedRoute
+final class LoadedRoute implements JsonSerializable
 {
     // phpcs:disable
     public function __construct(
@@ -30,5 +31,17 @@ final class LoadedRoute
     public function getRoute(): Route
     {
         return $this->route;
+    }
+
+    /**
+     * @return array<string,mixed>
+     */
+    public function jsonSerialize(): array
+    {
+        return [
+            'className'  => $this->className,
+            'methodName' => $this->methodName,
+            'route'      => $this->route->jsonSerialize(),
+        ];
     }
 }
