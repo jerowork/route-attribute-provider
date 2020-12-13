@@ -23,4 +23,19 @@ final class LoadedRouteTest extends TestCase
         $this->assertSame('__invoke', $loadedRoute->getMethodName());
         $this->assertSame($route, $loadedRoute->getRoute());
     }
+
+    public function testItShouldSerializeToArray(): void
+    {
+        $loadedRoute = new LoadedRoute(
+            stdClass::class,
+            '__invoke',
+            $route = new Route('/')
+        );
+
+        $this->assertSame([
+            'className'  => stdClass::class,
+            'methodName' => '__invoke',
+            'route'      => $route->jsonSerialize(),
+        ], $loadedRoute->jsonSerialize());
+    }
 }
