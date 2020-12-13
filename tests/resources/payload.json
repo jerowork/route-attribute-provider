@@ -1,0 +1,29 @@
+[
+    {
+        "className": "Jerowork\\RouteAttributeProvider\\Test\\resources\\StubClass",
+        "methodName": "__invoke",
+        "route": {
+            "pattern": "\/root",
+            "methods": [
+                "GET"
+            ],
+            "name": "root",
+            "middleware": [
+                "Jerowork\\RouteAttributeProvider\\Test\\resources\\directory\\sub\\StubClass4",
+                "Jerowork\\RouteAttributeProvider\\Test\\resources\\directory\\StubClass3"
+            ]
+        }
+    },
+    {
+        "className": "Jerowork\\RouteAttributeProvider\\Test\\resources\\StubClass2",
+        "methodName": "__invoke",
+        "route": {
+            "pattern": "\/minimalist",
+            "methods": [
+                "GET"
+            ],
+            "name": null,
+            "middleware": []
+        }
+    }
+]
