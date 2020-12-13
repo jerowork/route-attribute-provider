@@ -62,4 +62,19 @@ final class RouteTest extends TestCase
             'middleware' => [stdClass::class, stdClass::class],
         ], $route->jsonSerialize());
     }
+
+    public function testItShouldConstructFromPayload(): void
+    {
+        $route = Route::fromPayload([
+            'pattern'    => '/full-fledged',
+            'methods'    => [RequestMethod::GET, RequestMethod::POST],
+            'name'       => 'full-fledged.route',
+            'middleware' => [stdClass::class, stdClass::class],
+        ]);
+
+        $this->assertSame('/full-fledged', $route->getPattern());
+        $this->assertSame([RequestMethod::GET, RequestMethod::POST], $route->getMethods());
+        $this->assertSame('full-fledged.route', $route->getName());
+        $this->assertSame([stdClass::class, stdClass::class], $route->getMiddleware());
+    }
 }

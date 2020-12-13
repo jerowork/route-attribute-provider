@@ -42,6 +42,19 @@ final class Route implements JsonSerializable
         $this->middleware = is_string($middleware) === true ? [$middleware] : $middleware;
     }
 
+    /**
+     * @param array<string,mixed> $payload
+     */
+    public static function fromPayload(array $payload): self
+    {
+        return new self(
+            $payload['pattern'],
+            $payload['methods'],
+            $payload['name'],
+            $payload['middleware']
+        );
+    }
+
     public function getPattern(): string
     {
         return $this->pattern;
