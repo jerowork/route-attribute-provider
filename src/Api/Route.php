@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Jerowork\RouteAttributeProvider\Api;
 
 use Attribute;
+use JsonSerializable;
 
 #[Attribute(Attribute::TARGET_METHOD | Attribute::IS_REPEATABLE)]
-final class Route
+final class Route implements JsonSerializable
 {
     private string $pattern;
 
@@ -65,5 +66,18 @@ final class Route
     public function getMiddleware(): array
     {
         return $this->middleware;
+    }
+
+    /**
+     * @return array<string,mixed>
+     */
+    public function jsonSerialize(): array
+    {
+        return [
+            'pattern'    => $this->getPattern(),
+            'methods'    => $this->methods,
+            'name'       => $this->name,
+            'middleware' => $this->middleware,
+        ];
     }
 }

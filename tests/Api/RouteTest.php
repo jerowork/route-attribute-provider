@@ -45,4 +45,21 @@ final class RouteTest extends TestCase
         $this->assertSame('full-fledged.route', $route->getName());
         $this->assertSame([stdClass::class, stdClass::class], $route->getMiddleware());
     }
+
+    public function testItShouldSerializeToArray(): void
+    {
+        $route = new Route(
+            '/full-fledged',
+            [RequestMethod::GET, RequestMethod::POST],
+            'full-fledged.route',
+            [stdClass::class, stdClass::class]
+        );
+
+        $this->assertSame([
+            'pattern'    => '/full-fledged',
+            'methods'    => [RequestMethod::GET, RequestMethod::POST],
+            'name'       => 'full-fledged.route',
+            'middleware' => [stdClass::class, stdClass::class],
+        ], $route->jsonSerialize());
+    }
 }
