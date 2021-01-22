@@ -1,6 +1,6 @@
 {
     "name": "jerowork/route-attribute-provider",
-    "type": "project",
+    "type": "library",
     "description": "Define routes by PHP8 attributes",
     "keywords": [
         "php8",
