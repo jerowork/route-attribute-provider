@@ -21,7 +21,7 @@
     "require-dev": {
         "mockery/mockery": "^1.4",
         "scrutinizer/ocular": "^1.8",
-        "symfony/cache": "^5.2"
+        "symfony/cache": "^5.3"
     },
     "suggest": {
         "symfony/cache": "As PSR-16 Cache implementation"
