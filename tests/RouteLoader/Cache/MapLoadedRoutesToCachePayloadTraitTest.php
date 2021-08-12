@@ -26,7 +26,17 @@ final class MapLoadedRoutesToCachePayloadTraitTest extends TestCase
             new LoadedRoute(
                 StubClass::class,
                 '__invoke',
-                new Route('/root', RequestMethod::GET, 'root', [StubClass4::class, StubClass3::class])
+                new Route(
+                    '/root',
+                    RequestMethod::GET,
+                    'root',
+                    [StubClass4::class, StubClass3::class],
+                    'localhost',
+                    ['http'],
+                    80,
+                    null,
+                    ['strategy' => 'something']
+                )
             ),
             new LoadedRoute(
                 StubClass2::class,

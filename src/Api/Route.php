@@ -26,20 +26,47 @@ final class Route implements JsonSerializable
      */
     private array $middleware;
 
+    private ?string $host;
+
+    /**
+     * @var string[]
+     */
+    private array $schemes;
+
+    private ?int $httpPort;
+    private ?int $httpsPort;
+
+    /**
+     * @var array<string, mixed>
+     */
+    private array $options;
+
     /**
      * @param string|string[] $method
      * @param string|string[] $middleware
+     * @param string|string[] $schemes
+     * @param array<string, mixed> $options
      */
     public function __construct(
         string $pattern,
         string | array $method = [RequestMethod::GET],
         string $name = null,
-        string | array $middleware = []
+        string | array $middleware = [],
+        string $host = null,
+        string | array $schemes = [],
+        int $httpPort = null,
+        int $httpsPort = null,
+        array $options = []
     ) {
         $this->pattern    = $pattern;
         $this->methods    = is_string($method) === true ? [$method] : $method;
         $this->name       = $name;
         $this->middleware = is_string($middleware) === true ? [$middleware] : $middleware;
+        $this->host       = $host;
+        $this->schemes    = is_string($schemes) === true ? [$schemes] : $schemes;
+        $this->httpPort   = $httpPort;
+        $this->httpsPort  = $httpsPort;
+        $this->options    = $options;
     }
 
     /**
@@ -51,7 +78,12 @@ final class Route implements JsonSerializable
             $payload['pattern'],
             $payload['methods'],
             $payload['name'],
-            $payload['middleware']
+            $payload['middleware'],
+            $payload['host'],
+            $payload['schemes'],
+            $payload['httpPort'],
+            $payload['httpsPort'],
+            $payload['options']
         );
     }
 
@@ -81,6 +113,37 @@ final class Route implements JsonSerializable
         return $this->middleware;
     }
 
+    public function getHost(): ?string
+    {
+        return $this->host;
+    }
+
+    /**
+     * @return string[]
+     */
+    public function getSchemes(): array
+    {
+        return $this->schemes;
+    }
+
+    public function getHttpPort(): ?int
+    {
+        return $this->httpPort;
+    }
+
+    public function getHttpsPort(): ?int
+    {
+        return $this->httpsPort;
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    public function getOptions(): array
+    {
+        return $this->options;
+    }
+
     /**
      * @return array<string,mixed>
      */
@@ -91,6 +154,11 @@ final class Route implements JsonSerializable
             'methods'    => $this->methods,
             'name'       => $this->name,
             'middleware' => $this->middleware,
+            'host'       => $this->host,
+            'schemes'    => $this->schemes,
+            'httpPort'   => $this->httpPort,
+            'httpsPort'  => $this->httpsPort,
+            'options'    => $this->options,
         ];
     }
 }
