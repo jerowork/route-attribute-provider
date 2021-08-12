@@ -11,7 +11,14 @@
             "middleware": [
                 "Jerowork\\RouteAttributeProvider\\Test\\resources\\directory\\sub\\StubClass4",
                 "Jerowork\\RouteAttributeProvider\\Test\\resources\\directory\\StubClass3"
-            ]
+            ],
+            "host": "localhost",
+            "schemes": ["http"],
+            "httpPort": 80,
+            "httpsPort":  null,
+            "options": {
+                "strategy": "something"
+            }
         }
     },
     {
@@ -23,7 +30,12 @@
                 "GET"
             ],
             "name": null,
-            "middleware": []
+            "middleware": [],
+            "host": null,
+            "schemes": [],
+            "httpPort": null,
+            "httpsPort":  null,
+            "options": []
         }
     }
 ]

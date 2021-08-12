@@ -52,7 +52,12 @@ final class RouteTest extends TestCase
             '/full-fledged',
             [RequestMethod::GET, RequestMethod::POST],
             'full-fledged.route',
-            [stdClass::class, stdClass::class]
+            [stdClass::class, stdClass::class],
+            'localhost',
+            'http',
+            80,
+            null,
+            ['strategy' => 'something']
         );
 
         $this->assertSame([
@@ -60,6 +65,11 @@ final class RouteTest extends TestCase
             'methods'    => [RequestMethod::GET, RequestMethod::POST],
             'name'       => 'full-fledged.route',
             'middleware' => [stdClass::class, stdClass::class],
+            'host'       => 'localhost',
+            'schemes'    => ['http'],
+            'httpPort'   => 80,
+            'httpsPort'  => null,
+            'options'    => ['strategy' => 'something'],
         ], $route->jsonSerialize());
     }
 
@@ -70,11 +80,21 @@ final class RouteTest extends TestCase
             'methods'    => [RequestMethod::GET, RequestMethod::POST],
             'name'       => 'full-fledged.route',
             'middleware' => [stdClass::class, stdClass::class],
+            'host'       => 'localhost',
+            'schemes'    => ['http', 'https'],
+            'httpPort'   => 80,
+            'httpsPort'  => 443,
+            'options'    => ['strategy' => 'something'],
         ]);
 
         $this->assertSame('/full-fledged', $route->getPattern());
         $this->assertSame([RequestMethod::GET, RequestMethod::POST], $route->getMethods());
         $this->assertSame('full-fledged.route', $route->getName());
         $this->assertSame([stdClass::class, stdClass::class], $route->getMiddleware());
+        $this->assertSame('localhost', $route->getHost());
+        $this->assertSame(['http', 'https'], $route->getSchemes());
+        $this->assertSame(80, $route->getHttpPort());
+        $this->assertSame(443, $route->getHttpsPort());
+        $this->assertSame(['strategy' => 'something'], $route->getOptions());
     }
 }
