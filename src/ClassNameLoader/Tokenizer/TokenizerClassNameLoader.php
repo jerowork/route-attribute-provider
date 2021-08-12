@@ -35,10 +35,6 @@ final class TokenizerClassNameLoader implements ClassNameLoaderInterface
 
     private function loadFromFilePath(string $filePath): ?string
     {
-        /**
-         * @var PhpToken[] $tokens
-         * @phpstan-ignore-next-line
-         */
         $tokens     = PhpToken::tokenize((string) file_get_contents($filePath));
         $tokenCount = count($tokens);
 
