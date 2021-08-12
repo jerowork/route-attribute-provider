@@ -180,7 +180,12 @@ final class RootAction
         middleware: [
             SomeMiddleware::class,
             AnotherMiddleware::class,
-        ]
+        ],
+        host: 'localhost',
+        schemes: ['http', 'https'],
+        httpPort: 8888,
+        httpsPort: 9999,
+        options: ['strategy' => 'something']
     )]
     #[Route('/second-route',
         method: RequestMethod::DELETE,
