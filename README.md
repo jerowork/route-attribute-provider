@@ -15,7 +15,7 @@ $ composer require jerowork/route-attribute-provider
 ```
 
 ## Configuration
-In order to use route attributes, pick any of the [existing framework implementations](http://) or create a custom one.
+In order to use route attributes, pick any of the [existing framework implementations](#existing-implementations) or create a custom one.
 
 Instantiate `RouteAttributeConfigurator` somewhere close to the construction of your application,
 e.g. in your front controller (or ideally register in your PSR-11 container).
@@ -68,6 +68,7 @@ $routeConfigurator
 
 ### Existing implementations
 - [jerowork/slim-route-attribute-provider](https://github.com/jerowork/slim-route-attribute-provider) for [Slim](https://www.slimframework.com)
+- [brenoroosevelt/league-route-attribute-provider](https://github.com/brenoroosevelt/league-route-attribute-provider) for [League/Route](https://github.com/thephpleague/route)
 
 Or check [packagist](https://packagist.org/providers/jerowork/route-attribute-provider-implementation) for any other implementations.
 
