@@ -17,7 +17,7 @@ build:
             dependencies:
                 after:
                     - command: wget -O phive.phar https://phar.io/releases/phive.phar
-                    - command: php phive.phar install --force-accept-unsigned --trust-gpg-keys 4AA394086372C20A,CF1A108D0E7AE720,8A03EA3B385DBAA1,31C7E470E2138192
+                    - command: php phive.phar install --force-accept-unsigned --trust-gpg-keys 4AA394086372C20A,CF1A108D0E7AE720,12CE0F1D262429A5,31C7E470E2138192
             tests:
                 override:
                     - php-scrutinizer-run
