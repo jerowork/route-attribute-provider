@@ -80,6 +80,7 @@ Create a custom implementation by using `RouteAttributeProviderInterface`.
 
 A (fictive) custom implementation:
 ```php
+use Jerowork\RouteAttributeProvider\Api\Route;
 use Jerowork\RouteAttributeProvider\RouteAttributeProviderInterface;
 
 final class CustomRouteProvider implements RouteAttributeProviderInterface
@@ -91,7 +92,7 @@ final class CustomRouteProvider implements RouteAttributeProviderInterface
         $this->router = $router;
     }
 
-    public function configure(string $className,string $methodName,\Jerowork\RouteAttributeProvider\Api\Route $route) : void
+    public function configure(string $className,string $methodName, Route $route) : void
     {
         // Register rule at your router
         $rule = $this->router->addRule(
