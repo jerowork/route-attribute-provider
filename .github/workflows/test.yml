@@ -17,19 +17,10 @@ jobs:
               uses: shivammathur/setup-php@v2
               with:
                   php-version: 8.0
-                  tools: phive, composer:v2
+                  tools: composer:v2
 
             - name: Install composer dependencies
               run: composer install --prefer-dist --no-progress --no-suggest
 
-            - name: Install phive dependencies
-              run: phive install --force-accept-unsigned --trust-gpg-keys 4AA394086372C20A,CF1A108D0E7AE720,12CE0F1D262429A5,31C7E470E2138192
-
-            - name: Run PHPStan
-              run: tools/phpstan analyze
-
-            - name: Run Psalm
-              run: tools/psalm
-
-            - name: Run Codesniffer
-              run: tools/phpcs src --standard=phpcs.xml
+            - name: Run GrumPHP
+              run: vendor/bin/grumphp run

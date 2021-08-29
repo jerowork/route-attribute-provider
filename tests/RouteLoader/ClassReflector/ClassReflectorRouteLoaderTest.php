@@ -25,7 +25,7 @@ final class ClassReflectorRouteLoaderTest extends TestCase
             ProjectFactory::createInstance(),
             new RegexIteratorFileFinder()
         ));
-        $loader->addDirectory(__DIR__.'/../../resources');
+        $loader->addDirectory(__DIR__ . '/../../resources');
 
         $loadedRoutes = iterator_to_array($loader->getRoutes());
 

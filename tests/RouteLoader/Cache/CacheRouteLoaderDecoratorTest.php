@@ -30,23 +30,23 @@ final class CacheRouteLoaderDecoratorTest extends MockeryTestCase
         );
 
         $innerRouteLoader->allows('addDirectory')
-            ->with(__DIR__.'/../../resources/directory/sub')
+            ->with(__DIR__ . '/../../resources/directory/sub')
             ->andReturn($routeLoader);
 
         $innerRouteLoader->allows('getDirectories')
-            ->andReturn([__DIR__.'/../../resources/directory/sub']);
+            ->andReturn([__DIR__ . '/../../resources/directory/sub']);
 
         $innerRouteLoader->expects('getRoutes')->andReturn($this->returnArrayAsGenerator([
             $loadedRoute = new LoadedRoute(StubClass::class, '__invoke', new Route('/root')),
         ]));
 
-        $loadedRoutes = $routeLoader->addDirectory(__DIR__.'/../../resources/directory/sub')->getRoutes();
+        $loadedRoutes = $routeLoader->addDirectory(__DIR__ . '/../../resources/directory/sub')->getRoutes();
 
         $this->assertSame([$loadedRoute], iterator_to_array($loadedRoutes));
 
         $this->assertEquals(
             $this->mapLoadedRoutesToCachePayload($loadedRoute),
-            $cache->get($this->createCacheKey([__DIR__.'/../../resources/directory/sub']))
+            $cache->get($this->createCacheKey([__DIR__ . '/../../resources/directory/sub']))
         );
     }
 
@@ -58,14 +58,14 @@ final class CacheRouteLoaderDecoratorTest extends MockeryTestCase
         );
 
         $innerRouteLoader->allows('addDirectory')
-            ->with(__DIR__.'/../../resources/directory/sub')
+            ->with(__DIR__ . '/../../resources/directory/sub')
             ->andReturn($routeLoader);
 
         $innerRouteLoader->allows('getDirectories')
-            ->andReturn([__DIR__.'/../../resources/directory/sub']);
+            ->andReturn([__DIR__ . '/../../resources/directory/sub']);
 
         $cache->set(
-            $this->createCacheKey([__DIR__.'/../../resources/directory/sub']),
+            $this->createCacheKey([__DIR__ . '/../../resources/directory/sub']),
             $this->mapLoadedRoutesToCachePayload(
                 $loadedRoute = new LoadedRoute(StubClass::class, '__invoke', new Route('/root'))
             )
@@ -73,7 +73,7 @@ final class CacheRouteLoaderDecoratorTest extends MockeryTestCase
 
         $innerRouteLoader->expects('getRoutes')->never();
 
-        $loadedRoutes = $routeLoader->addDirectory(__DIR__.'/../../resources/directory/sub')->getRoutes();
+        $loadedRoutes = $routeLoader->addDirectory(__DIR__ . '/../../resources/directory/sub')->getRoutes();
 
         $this->assertEquals([$loadedRoute], iterator_to_array($loadedRoutes));
     }

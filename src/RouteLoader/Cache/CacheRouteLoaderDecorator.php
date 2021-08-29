@@ -19,12 +19,12 @@ final class CacheRouteLoaderDecorator implements RouteLoaderInterface
     {
     }
 
-    public function getDirectories(): array
+    public function getDirectories() : array
     {
         return $this->routeLoader->getDirectories();
     }
 
-    public function addDirectory(string ...$directories): self
+    public function addDirectory(string ...$directories) : self
     {
         $this->routeLoader->addDirectory(...$directories);
 
@@ -34,7 +34,7 @@ final class CacheRouteLoaderDecorator implements RouteLoaderInterface
     /**
      * @throws JsonException
      */
-    public function getRoutes(): Generator
+    public function getRoutes() : Generator
     {
         $cacheKey = $this->createCacheKey($this->getDirectories());
         $payload  = $this->cache->get($cacheKey);

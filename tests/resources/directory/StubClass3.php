@@ -11,15 +11,18 @@ use stdClass;
 
 final class StubClass3
 {
-    #[Route('/full-fledged',
+    #[Route(
+        '/full-fledged',
         method: [RequestMethod::POST, RequestMethod::PUT],
         name: 'full-fledged.route',
         middleware: [StubClass4::class, stdClass::class]
     )]
-    #[Route('/alternative-second',
+    #[Route(
+        '/alternative-second',
         method: [RequestMethod::DELETE, RequestMethod::OPTIONS],
         name: 'alternative-second.route'
     )]
     public function __invoke(): void
-    {}
+    {
+    }
 }

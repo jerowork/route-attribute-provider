@@ -18,7 +18,7 @@ final class MapLoadedRoutesToCachePayloadTraitTest extends TestCase
 {
     public function testItShouldMapLoadedRoutesToPayload(): void
     {
-        $trait = new class() {
+        $trait = new class () {
             use MapLoadedRoutesToCachePayloadTrait;
         };
 
@@ -46,7 +46,7 @@ final class MapLoadedRoutesToCachePayloadTraitTest extends TestCase
         );
 
         $this->assertSame(
-            json_encode(json_decode(file_get_contents(__DIR__.'/../../resources/payload.json'))),
+            json_encode(json_decode((string) file_get_contents(__DIR__ . '/../../resources/payload.json'))),
             $payload
         );
     }

@@ -6,7 +6,7 @@ filter:
 build:
     environment:
         php:
-            version: 8.0.0
+            version: 8.0.10
             ini:
                 'xdebug.mode': 'coverage'
     nodes:
@@ -14,16 +14,13 @@ build:
             project_setup:
                 override:
                     - 'true'
-            dependencies:
-                after:
-                    - command: wget -O phive.phar https://phar.io/releases/phive.phar
-                    - command: php phive.phar install --force-accept-unsigned --trust-gpg-keys 4AA394086372C20A,CF1A108D0E7AE720,12CE0F1D262429A5,31C7E470E2138192
             tests:
                 override:
                     - php-scrutinizer-run
-                    - command: tools/phpunit --coverage-clover=coverage.clover
+                    - command: vendor/bin/phpunit --coverage-clover=coverage.clover
                     - command: vendor/bin/ocular code-coverage:upload --format=php-clover coverage.clover
 checks:
     php: true
 tools:
-    external_code_coverage: true
+    external_code_coverage:
+        timeout: 900

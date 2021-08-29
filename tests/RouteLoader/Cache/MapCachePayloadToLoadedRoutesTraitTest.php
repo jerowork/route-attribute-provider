@@ -18,12 +18,12 @@ final class MapCachePayloadToLoadedRoutesTraitTest extends TestCase
 {
     public function testItShouldMapPayloadToLoadedRoutes(): void
     {
-        $trait = new class() {
+        $trait = new class () {
             use MapCachePayloadToLoadedRoutesTrait;
         };
 
         $loadedRoutes = $trait->mapCachePayloadToLoadedRoutes(
-            file_get_contents(__DIR__.'/../../resources/payload.json')
+            file_get_contents(__DIR__ . '/../../resources/payload.json')
         );
 
         $this->assertEquals([

@@ -33,7 +33,7 @@ final class RouteAttributeConfigurator
         );
     }
 
-    public function addDirectory(string ...$directories): self
+    public function addDirectory(string ...$directories) : self
     {
         foreach ($directories as $directory) {
             $this->directories[] = $directory;
@@ -42,14 +42,14 @@ final class RouteAttributeConfigurator
         return $this;
     }
 
-    public function enableCache(CacheInterface $cache): self
+    public function enableCache(CacheInterface $cache) : self
     {
         $this->routeLoader = new CacheRouteLoaderDecorator($this->routeLoader, $cache);
 
         return $this;
     }
 
-    public function configure(): void
+    public function configure() : void
     {
         foreach ($this->routeLoader->addDirectory(...$this->directories)->getRoutes() as $loadedRoute) {
             $this->routeAttributeProvider->configure(
@@ -60,7 +60,7 @@ final class RouteAttributeConfigurator
         }
     }
 
-    public function getRouteLoader(): RouteLoaderInterface
+    public function getRouteLoader() : RouteLoaderInterface
     {
         return $this->routeLoader;
     }

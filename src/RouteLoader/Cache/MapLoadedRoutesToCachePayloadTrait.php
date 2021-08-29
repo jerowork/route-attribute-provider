@@ -12,10 +12,10 @@ trait MapLoadedRoutesToCachePayloadTrait
     /**
      * @throws JsonException
      */
-    public function mapLoadedRoutesToCachePayload(LoadedRoute ...$loadedRoutes): string
+    public function mapLoadedRoutesToCachePayload(LoadedRoute ...$loadedRoutes) : string
     {
         return json_encode(array_map(
-            static fn (LoadedRoute $loadedRoute): array => $loadedRoute->jsonSerialize(),
+            static fn (LoadedRoute $loadedRoute) : array => $loadedRoute->jsonSerialize(),
             $loadedRoutes
         ), JSON_THROW_ON_ERROR);
     }

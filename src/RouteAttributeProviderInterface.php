@@ -8,5 +8,5 @@ use Jerowork\RouteAttributeProvider\Api\Route;
 
 interface RouteAttributeProviderInterface
 {
-    public function configure(string $className, string $methodName, Route $route): void;
+    public function configure(string $className, string $methodName, Route $route) : void;
 }

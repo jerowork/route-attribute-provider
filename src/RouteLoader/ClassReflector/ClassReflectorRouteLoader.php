@@ -21,12 +21,12 @@ final class ClassReflectorRouteLoader implements RouteLoaderInterface
     {
     }
 
-    public function getDirectories(): array
+    public function getDirectories() : array
     {
         return $this->directories;
     }
 
-    public function addDirectory(string ...$directories): RouteLoaderInterface
+    public function addDirectory(string ...$directories) : RouteLoaderInterface
     {
         /** @psalm-suppress DuplicateArrayKey */
         $this->directories = [...$this->directories, ...$directories];
@@ -34,7 +34,7 @@ final class ClassReflectorRouteLoader implements RouteLoaderInterface
         return $this;
     }
 
-    public function getRoutes(): Generator
+    public function getRoutes() : Generator
     {
         $reflector = $this->reflectorFactory->create()->addDirectory(...$this->directories);
 

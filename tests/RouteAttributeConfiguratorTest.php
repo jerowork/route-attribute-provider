@@ -84,7 +84,7 @@ final class RouteAttributeConfiguratorTest extends MockeryTestCase
                 })
             );
 
-        $configurator->addDirectory(__DIR__.'/resources')->configure();
+        $configurator->addDirectory(__DIR__ . '/resources')->configure();
     }
 
     public function testItShouldHaveDisabledCacheByDefault(): void

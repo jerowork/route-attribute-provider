@@ -12,5 +12,6 @@ final class StubClass2
 {
     #[Route('/extended', method: RequestMethod::POST, name: 'extended.route', middleware: StubClass4::class)]
     public function handle(): void
-    {}
+    {
+    }
 }

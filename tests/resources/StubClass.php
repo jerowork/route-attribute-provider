@@ -10,5 +10,6 @@ final class StubClass
 {
     #[Route('/minimalist')]
     public function __invoke(): void
-    {}
+    {
+    }
 }

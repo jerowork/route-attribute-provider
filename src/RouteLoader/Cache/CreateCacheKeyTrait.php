@@ -10,10 +10,8 @@ trait CreateCacheKeyTrait
 
     /**
      * @param string[] $directories
-     *
-     * @return string
      */
-    public function createCacheKey(array $directories): string
+    public function createCacheKey(array $directories) : string
     {
         return sprintf(
             '%s.%s',

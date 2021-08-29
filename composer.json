@@ -16,16 +16,30 @@
     ],
     "require": {
         "php": "^8.0",
-        "psr/simple-cache": "^1.0",
-        "jerowork/file-class-reflector": "^0.1.0"
+        "jerowork/file-class-reflector": "^0.1.0",
+        "psr/simple-cache": "^1.0"
     },
     "require-dev": {
+        "ergebnis/composer-normalize": "^2.15",
+        "friendsofphp/php-cs-fixer": "^3.0",
         "mockery/mockery": "^1.4",
+        "phpmd/phpmd": "^2.10",
+        "phpro/grumphp-shim": "^1.4",
+        "phpstan/phpstan": "^0.12.96",
+        "phpunit/phpunit": "^9.5",
         "scrutinizer/ocular": "^1.8",
-        "symfony/cache": "^5.3"
+        "squizlabs/php_codesniffer": "^3.6",
+        "symfony/cache": "^5.3",
+        "vimeo/psalm": "^4.9"
     },
     "suggest": {
         "symfony/cache": "As PSR-16 Cache implementation"
+    },
+    "config": {
+        "platform": {
+            "php": "8.0"
+        },
+        "sort-packages": true
     },
     "autoload": {
         "psr-4": {

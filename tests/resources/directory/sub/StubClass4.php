@@ -10,5 +10,6 @@ final class StubClass4
 {
     #[Route('/class4')]
     public function __invoke(): void
-    {}
+    {
+    }
 }

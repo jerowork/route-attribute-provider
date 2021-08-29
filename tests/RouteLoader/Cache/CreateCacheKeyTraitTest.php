@@ -11,7 +11,7 @@ final class CreateCacheKeyTraitTest extends TestCase
 {
     public function testItShouldCreateCacheKey(): void
     {
-        $trait = new class() {
+        $trait = new class () {
             use CreateCacheKeyTrait;
         };
 

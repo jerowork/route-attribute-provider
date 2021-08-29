@@ -16,27 +16,28 @@ final class LoadedRoute implements JsonSerializable
         private Route $route
     ) {
     }
+
     // phpcs:enable
 
     /**
      * @param array<string,mixed> $payload
      */
-    public static function fromPayload(array $payload): self
+    public static function fromPayload(array $payload) : self
     {
         return new self($payload['className'], $payload['methodName'], Route::fromPayload($payload['route']));
     }
 
-    public function getClassName(): string
+    public function getClassName() : string
     {
         return $this->className;
     }
 
-    public function getMethodName(): string
+    public function getMethodName() : string
     {
         return $this->methodName;
     }
 
-    public function getRoute(): Route
+    public function getRoute() : Route
     {
         return $this->route;
     }
@@ -44,7 +45,7 @@ final class LoadedRoute implements JsonSerializable
     /**
      * @return array<string,mixed>
      */
-    public function jsonSerialize(): array
+    public function jsonSerialize() : array
     {
         return [
             'className'  => $this->className,

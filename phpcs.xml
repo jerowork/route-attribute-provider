@@ -5,9 +5,9 @@
 
     <!-- Import PSR-12 coding standard (base) -->
     <!-- https://github.com/squizlabs/PHP_CodeSniffer/blob/master/src/Standards/PSR12/ruleset.xml -->
-    <rule ref="PSR12"/>
-
-    <rule ref="PSR1">
-        <exclude name="PSR1.Files.SideEffects"/>
+    <rule ref="PSR12">
+        <exclude name="PSR12.Functions.ReturnTypeDeclaration.SpaceBeforeColon"/>
     </rule>
+
+    <exclude-pattern>*/tests/*</exclude-pattern>
 </ruleset>

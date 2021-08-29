@@ -11,14 +11,14 @@ use JsonException;
 trait MapCachePayloadToLoadedRoutesTrait
 {
     /**
-     * @return Generator<LoadedRoute>
-     *
      * @throws JsonException
+     *
+     * @return Generator<LoadedRoute>
      */
-    public function mapCachePayloadToLoadedRoutes(mixed $payload): Generator
+    public function mapCachePayloadToLoadedRoutes(mixed $payload) : Generator
     {
         yield from array_map(
-            static fn (array $payload): LoadedRoute => LoadedRoute::fromPayload($payload),
+            static fn (array $payload) : LoadedRoute => LoadedRoute::fromPayload($payload),
             json_decode($payload, true, flags: JSON_THROW_ON_ERROR)
         );
     }
