@@ -8,12 +8,17 @@ trait CreateCacheKeyTrait
 {
     private string $cacheKeyPrefix = 'route_attribute_provider.route_loader';
 
-    public function createCacheKey(string $className): string
+    /**
+     * @param string[] $directories
+     *
+     * @return string
+     */
+    public function createCacheKey(array $directories): string
     {
         return sprintf(
             '%s.%s',
             $this->cacheKeyPrefix,
-            str_replace('\\', '.', $className)
+            sha1(implode('', $directories))
         );
     }
 }

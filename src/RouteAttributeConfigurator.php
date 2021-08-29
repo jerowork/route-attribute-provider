@@ -4,33 +4,33 @@ declare(strict_types=1);
 
 namespace Jerowork\RouteAttributeProvider;
 
-use Jerowork\RouteAttributeProvider\ClassNameLoader\ClassNameLoaderInterface;
-use Jerowork\RouteAttributeProvider\ClassNameLoader\Tokenizer\TokenizerClassNameLoader;
+use Jerowork\FileClassReflector\FileFinder\RegexIterator\RegexIteratorFileFinder;
+use Jerowork\FileClassReflector\PhpDocumentor\PhpDocumentorClassReflectorFactory;
 use Jerowork\RouteAttributeProvider\RouteLoader\Cache\CacheRouteLoaderDecorator;
-use Jerowork\RouteAttributeProvider\RouteLoader\Reflection\ReflectionRouteLoader;
+use Jerowork\RouteAttributeProvider\RouteLoader\ClassReflector\ClassReflectorRouteLoader;
 use Jerowork\RouteAttributeProvider\RouteLoader\RouteLoaderInterface;
+use phpDocumentor\Reflection\Php\ProjectFactory;
 use Psr\SimpleCache\CacheInterface;
 
 final class RouteAttributeConfigurator
 {
-    private RouteAttributeProviderInterface $routeAttributeProvider;
-    private ClassNameLoaderInterface $classNameLoader;
     private RouteLoaderInterface $routeLoader;
 
     /**
      * @var string[] $directories
      */
-    private array $directories;
+    private array $directories = [];
 
     public function __construct(
-        RouteAttributeProviderInterface $routeAttributeProvider,
-        ?ClassNameLoaderInterface $classNameLoader = null,
+        private RouteAttributeProviderInterface $routeAttributeProvider,
         ?RouteLoaderInterface $routeLoader = null
     ) {
-        $this->routeAttributeProvider = $routeAttributeProvider;
-        $this->classNameLoader        = $classNameLoader ?? new TokenizerClassNameLoader();
-        $this->routeLoader            = $routeLoader ?? new ReflectionRouteLoader();
-        $this->directories            = [];
+        $this->routeLoader = $routeLoader ?? new ClassReflectorRouteLoader(
+            new PhpDocumentorClassReflectorFactory(
+                ProjectFactory::createInstance(),
+                new RegexIteratorFileFinder()
+            )
+        );
     }
 
     public function addDirectory(string ...$directories): self
@@ -51,31 +51,17 @@ final class RouteAttributeConfigurator
 
     public function configure(): void
     {
-        foreach ($this->directories as $directory) {
-            foreach ($this->classNameLoader->load($directory) as $className) {
-                $this->configureForClassName($className);
-            }
-        }
-    }
-
-    public function getRouteLoader(): RouteLoaderInterface
-    {
-        return $this->routeLoader;
-    }
-
-    /**
-     * @param class-string $className
-     */
-    private function configureForClassName(string $className): void
-    {
-        $loadedRoutes = $this->routeLoader->load($className);
-
-        foreach ($loadedRoutes as $loadedRoute) {
+        foreach ($this->routeLoader->addDirectory(...$this->directories)->getRoutes() as $loadedRoute) {
             $this->routeAttributeProvider->configure(
                 $loadedRoute->getClassName(),
                 $loadedRoute->getMethodName(),
                 $loadedRoute->getRoute()
             );
         }
+    }
+
+    public function getRouteLoader(): RouteLoaderInterface
+    {
+        return $this->routeLoader;
     }
 }

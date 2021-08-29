@@ -29,17 +29,24 @@ final class CacheRouteLoaderDecoratorTest extends MockeryTestCase
             $cache = new Psr16Cache(new ArrayAdapter())
         );
 
-        $innerRouteLoader->expects('load')->andReturn($this->returnArrayAsGenerator([
+        $innerRouteLoader->allows('addDirectory')
+            ->with(__DIR__.'/../../resources/directory/sub')
+            ->andReturn($routeLoader);
+
+        $innerRouteLoader->allows('getDirectories')
+            ->andReturn([__DIR__.'/../../resources/directory/sub']);
+
+        $innerRouteLoader->expects('getRoutes')->andReturn($this->returnArrayAsGenerator([
             $loadedRoute = new LoadedRoute(StubClass::class, '__invoke', new Route('/root')),
         ]));
 
-        $loadedRoutes = $routeLoader->load(StubClass::class);
+        $loadedRoutes = $routeLoader->addDirectory(__DIR__.'/../../resources/directory/sub')->getRoutes();
 
         $this->assertSame([$loadedRoute], iterator_to_array($loadedRoutes));
 
         $this->assertEquals(
             $this->mapLoadedRoutesToCachePayload($loadedRoute),
-            $cache->get($this->createCacheKey(StubClass::class))
+            $cache->get($this->createCacheKey([__DIR__.'/../../resources/directory/sub']))
         );
     }
 
@@ -50,16 +57,23 @@ final class CacheRouteLoaderDecoratorTest extends MockeryTestCase
             $cache = new Psr16Cache(new ArrayAdapter())
         );
 
+        $innerRouteLoader->allows('addDirectory')
+            ->with(__DIR__.'/../../resources/directory/sub')
+            ->andReturn($routeLoader);
+
+        $innerRouteLoader->allows('getDirectories')
+            ->andReturn([__DIR__.'/../../resources/directory/sub']);
+
         $cache->set(
-            $this->createCacheKey(StubClass::class),
+            $this->createCacheKey([__DIR__.'/../../resources/directory/sub']),
             $this->mapLoadedRoutesToCachePayload(
                 $loadedRoute = new LoadedRoute(StubClass::class, '__invoke', new Route('/root'))
             )
         );
 
-        $innerRouteLoader->expects('load')->never();
+        $innerRouteLoader->expects('getRoutes')->never();
 
-        $loadedRoutes = $routeLoader->load(StubClass::class);
+        $loadedRoutes = $routeLoader->addDirectory(__DIR__.'/../../resources/directory/sub')->getRoutes();
 
         $this->assertEquals([$loadedRoute], iterator_to_array($loadedRoutes));
     }

@@ -15,21 +15,28 @@ final class CacheRouteLoaderDecorator implements RouteLoaderInterface
     use MapCachePayloadToLoadedRoutesTrait;
     use MapLoadedRoutesToCachePayloadTrait;
 
-    private RouteLoaderInterface $routeLoader;
-    private CacheInterface $cache;
-
-    public function __construct(RouteLoaderInterface $routeLoader, CacheInterface $cache)
+    public function __construct(private RouteLoaderInterface $routeLoader, private CacheInterface $cache)
     {
-        $this->routeLoader = $routeLoader;
-        $this->cache       = $cache;
+    }
+
+    public function getDirectories(): array
+    {
+        return $this->routeLoader->getDirectories();
+    }
+
+    public function addDirectory(string ...$directories): self
+    {
+        $this->routeLoader->addDirectory(...$directories);
+
+        return $this;
     }
 
     /**
      * @throws JsonException
      */
-    public function load(string $className): Generator
+    public function getRoutes(): Generator
     {
-        $cacheKey = $this->createCacheKey($className);
+        $cacheKey = $this->createCacheKey($this->getDirectories());
         $payload  = $this->cache->get($cacheKey);
 
         if ($payload !== null) {
@@ -38,7 +45,7 @@ final class CacheRouteLoaderDecorator implements RouteLoaderInterface
             return;
         }
 
-        $loadedRoutes = iterator_to_array($this->routeLoader->load($className));
+        $loadedRoutes = iterator_to_array($this->routeLoader->getRoutes());
 
         $this->cache->set($cacheKey, $this->mapLoadedRoutesToCachePayload(...$loadedRoutes));
 

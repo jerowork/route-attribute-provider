@@ -39,20 +39,23 @@ $routeConfigurator
 
 Extended configuration:
 ```php
-use Jerowork\RouteAttributeProvider\ClassNameLoader\Tokenizer\TokenizerClassNameLoader;
-use Jerowork\RouteAttributeProvider\Finder\DirectoryIterator\DirectoryIteratorPhpFileFinder;
+use Jerowork\FileClassReflector\FileFinder\RegexIterator\RegexIteratorFileFinder;
+use Jerowork\FileClassReflector\PhpDocumentor\PhpDocumentorClassReflectorFactory;
 use Jerowork\RouteAttributeProvider\RouteAttributeConfigurator;
-use Jerowork\RouteAttributeProvider\RouteLoader\Reflection\ReflectionRouteLoader;
+use Jerowork\RouteAttributeProvider\RouteLoader\ClassReflector\ClassReflectorRouteLoader;
+use phpDocumentor\Reflection\Php\ProjectFactory;
 
 // ...
 
 // All parts of the configurator can be replaced with a custom implementation
 $routeConfigurator = new RouteAttributeConfigurator(
     new CustomRouteProvider($router), // Implementation of your choice
-    new TokenizerClassNameLoader(
-        new DirectoryIteratorPhpFileFinder()
-    ),
-    new ReflectionRouteLoader()
+    new ClassReflectorRouteLoader(
+        new PhpDocumentorClassReflectorFactory(
+            ProjectFactory::createInstance(),
+            new RegexIteratorFileFinder()
+        )
+    )
 );
 
 // Multiple directories can be defined

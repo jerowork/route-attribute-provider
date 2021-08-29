@@ -8,10 +8,15 @@ use Generator;
 
 interface RouteLoaderInterface
 {
+    public function addDirectory(string ...$directories): self;
+
     /**
-     * @param class-string $className
-     *
+     * @return string[]
+     */
+    public function getDirectories(): array;
+
+    /**
      * @return Generator<LoadedRoute>
      */
-    public function load(string $className): Generator;
+    public function getRoutes(): Generator;
 }
