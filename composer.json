@@ -39,7 +39,11 @@
         "platform": {
             "php": "8.0"
         },
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "phpro/grumphp-shim": true,
+            "ergebnis/composer-normalize": true
+        }
     },
     "autoload": {
         "psr-4": {
