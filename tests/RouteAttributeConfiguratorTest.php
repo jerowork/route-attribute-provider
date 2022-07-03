@@ -11,6 +11,7 @@ use Jerowork\RouteAttributeProvider\RouteLoader\Cache\CacheRouteLoaderDecorator;
 use Jerowork\RouteAttributeProvider\Test\resources\directory\StubClass3;
 use Jerowork\RouteAttributeProvider\Test\resources\directory\sub\StubClass4;
 use Jerowork\RouteAttributeProvider\Test\resources\StubClass;
+use Jerowork\RouteAttributeProvider\Test\resources\StubClass1;
 use Jerowork\RouteAttributeProvider\Test\resources\StubClass2;
 use Mockery;
 use Mockery\Adapter\Phpunit\MockeryTestCase;
@@ -67,6 +68,18 @@ final class RouteAttributeConfiguratorTest extends MockeryTestCase
                 '__invoke',
                 Mockery::on(function (Route $route): bool {
                     $this->assertSame('/minimalist', $route->getPattern());
+
+                    return true;
+                })
+            );
+            
+        $provider->expects('configure')
+            ->once()
+            ->with(
+                StubClass1::class,
+                '__invoke',
+                Mockery::on(function (Route $route): bool {
+                    $this->assertSame('/retest', $route->getPattern());
 
                     return true;
                 })
