@@ -1,13 +1,13 @@
 {
     "name": "jerowork/route-attribute-provider",
-    "type": "library",
     "description": "Define routes by PHP8 attributes",
+    "license": "MIT",
+    "type": "library",
     "keywords": [
         "php8",
         "attributes",
         "router"
     ],
-    "license": "MIT",
     "authors": [
         {
             "name": "Jeroen de Graaf",
@@ -35,12 +35,6 @@
     "suggest": {
         "symfony/cache": "As PSR-16 Cache implementation"
     },
-    "config": {
-        "platform": {
-            "php": "8.0"
-        },
-        "sort-packages": true
-    },
     "autoload": {
         "psr-4": {
             "Jerowork\\RouteAttributeProvider\\": "src/"
@@ -50,5 +44,15 @@
         "psr-4": {
             "Jerowork\\RouteAttributeProvider\\Test\\": "tests/"
         }
+    },
+    "config": {
+        "allow-plugins": {
+            "phpro/grumphp-shim": true,
+            "ergebnis/composer-normalize": true
+        },
+        "platform": {
+            "php": "8.0"
+        },
+        "sort-packages": true
     }
 }
