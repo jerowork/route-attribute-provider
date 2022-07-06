@@ -49,11 +49,11 @@ final class Route implements JsonSerializable
      */
     public function __construct(
         string $pattern,
-        string | array $method = [RequestMethod::GET],
+        string|array $method = [RequestMethod::GET],
         string $name = null,
-        string | array $middleware = [],
+        string|array $middleware = [],
         string $host = null,
-        string | array $schemes = [],
+        string|array $schemes = [],
         int $httpPort = null,
         int $httpsPort = null,
         array $options = []
