@@ -39,16 +39,16 @@ final class ClassReflectorRouteLoader implements RouteLoaderInterface
         $reflector = $this->reflectorFactory->create()->addDirectory(...$this->directories);
         foreach ($reflector->reflect()->getClasses() as $class) {
             $hasClassAttribute = false;
-            
+
             foreach ($class->getAttributes(Route::class) as $attribute) {
                 $hasClassAttribute = true;
-                
+
                 /** @var Route $route */
-                $route = $attribute->newInstance();         
-                
+                $route = $attribute->newInstance();
+
                 yield new LoadedRoute($class->getName(), '__invoke', $route);
             }
-            
+
             if (!$hasClassAttribute) {
                 foreach ($class->getMethods() as $method) {
                     foreach ($method->getAttributes(Route::class) as $attribute) {
