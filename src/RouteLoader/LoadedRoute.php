@@ -20,7 +20,21 @@ final class LoadedRoute implements JsonSerializable
     // phpcs:enable
 
     /**
-     * @param array<string,mixed> $payload
+     * @param array{
+     *     className: string,
+     *     methodName: string,
+     *     route: array{
+     *      pattern: string,
+     *      methods: string|list<string>,
+     *      name: null|string,
+     *      middleware: string|list<string>,
+     *      host: null|string,
+     *      schemes: string|list<string>,
+     *      httpPort: null|int,
+     *      httpsPort: null|int,
+     *      options: array<string, mixed>
+     *  }
+     * } $payload
      */
     public static function fromPayload(array $payload) : self
     {

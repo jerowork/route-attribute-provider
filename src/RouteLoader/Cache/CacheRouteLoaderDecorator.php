@@ -37,7 +37,8 @@ final class CacheRouteLoaderDecorator implements RouteLoaderInterface
     public function getRoutes() : Generator
     {
         $cacheKey = $this->createCacheKey($this->getDirectories());
-        $payload  = $this->cache->get($cacheKey);
+        /** @var null|string $payload */
+        $payload = $this->cache->get($cacheKey);
 
         if ($payload !== null) {
             yield from $this->mapCachePayloadToLoadedRoutes($payload);

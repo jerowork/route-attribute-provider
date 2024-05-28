@@ -1,8 +1,7 @@
 parameters:
     inferPrivatePropertyTypeFromConstructor: true
-    checkGenericClassInNonGenericObjectType: false
     level: max
     paths:
         - src
-    excludes_analyse:
+    excludePaths:
         - tests
