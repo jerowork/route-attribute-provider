@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Jerowork\RouteAttributeProvider\Test\RouteLoader\ClassReflector;
 
 use Jerowork\FileClassReflector\FileFinder\RegexIterator\RegexIteratorFileFinder;
-use Jerowork\FileClassReflector\PhpDocumentor\PhpDocumentorClassReflectorFactory;
+use Jerowork\FileClassReflector\NikicParser\NikicParserClassReflectorFactory;
 use Jerowork\RouteAttributeProvider\Api\RequestMethod;
 use Jerowork\RouteAttributeProvider\RouteLoader\ClassReflector\ClassReflectorRouteLoader;
 use Jerowork\RouteAttributeProvider\RouteLoader\LoadedRoute;
@@ -14,7 +14,8 @@ use Jerowork\RouteAttributeProvider\Test\resources\directory\sub\StubClass4;
 use Jerowork\RouteAttributeProvider\Test\resources\StubClass;
 use Jerowork\RouteAttributeProvider\Test\resources\StubClass1;
 use Jerowork\RouteAttributeProvider\Test\resources\StubClass2;
-use phpDocumentor\Reflection\Php\ProjectFactory;
+use PhpParser\NodeTraverser;
+use PhpParser\ParserFactory;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
@@ -22,10 +23,13 @@ final class ClassReflectorRouteLoaderTest extends TestCase
 {
     public function testItShouldGetLoadedRoutes(): void
     {
-        $loader = new ClassReflectorRouteLoader(new PhpDocumentorClassReflectorFactory(
-            ProjectFactory::createInstance(),
-            new RegexIteratorFileFinder()
-        ));
+        $loader = new ClassReflectorRouteLoader(
+            new NikicParserClassReflectorFactory(
+                new RegexIteratorFileFinder(),
+                (new ParserFactory())->create(ParserFactory::PREFER_PHP7),
+                new NodeTraverser()
+            )
+        );
         $loader->addDirectory(__DIR__ . '/../../resources');
 
         $loadedRoutes = iterator_to_array($loader->getRoutes());
