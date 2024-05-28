@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace Jerowork\RouteAttributeProvider;
 
 use Jerowork\FileClassReflector\FileFinder\RegexIterator\RegexIteratorFileFinder;
-use Jerowork\FileClassReflector\PhpDocumentor\PhpDocumentorClassReflectorFactory;
+use Jerowork\FileClassReflector\NikicParser\NikicParserClassReflectorFactory;
 use Jerowork\RouteAttributeProvider\RouteLoader\Cache\CacheRouteLoaderDecorator;
 use Jerowork\RouteAttributeProvider\RouteLoader\ClassReflector\ClassReflectorRouteLoader;
 use Jerowork\RouteAttributeProvider\RouteLoader\RouteLoaderInterface;
-use phpDocumentor\Reflection\Php\ProjectFactory;
+use PhpParser\NodeTraverser;
+use PhpParser\ParserFactory;
 use Psr\SimpleCache\CacheInterface;
 
 final class RouteAttributeConfigurator
@@ -26,9 +27,10 @@ final class RouteAttributeConfigurator
         ?RouteLoaderInterface $routeLoader = null
     ) {
         $this->routeLoader = $routeLoader ?? new ClassReflectorRouteLoader(
-            new PhpDocumentorClassReflectorFactory(
-                ProjectFactory::createInstance(),
-                new RegexIteratorFileFinder()
+            new NikicParserClassReflectorFactory(
+                new RegexIteratorFileFinder(),
+                (new ParserFactory())->create(ParserFactory::PREFER_PHP7),
+                new NodeTraverser()
             )
         );
     }

@@ -11,5 +11,3 @@ grumphp:
                 - phpmd.xml
         phpstan:
             configuration: phpstan.neon
-        psalm:
-            config: psalm.xml
