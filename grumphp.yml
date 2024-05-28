@@ -11,3 +11,4 @@ grumphp:
                 - phpmd.xml
         phpstan:
             configuration: phpstan.neon
+        phpunit: ~

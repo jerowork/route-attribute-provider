@@ -2,7 +2,7 @@ name: Test
 
 on:
     push:
-        branches: main
+        branches: [main]
     pull_request: ~
 
 jobs:
@@ -25,5 +25,5 @@ jobs:
             - name: Install composer dependencies
               run: composer install --prefer-dist --no-progress --no-suggest
 
-            - name: Run GrumPHP
+            - name: Run tests
               run: vendor/bin/grumphp run
