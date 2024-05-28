@@ -20,6 +20,11 @@ return (new Config())
             ],
         ],
         'concat_space'               => ['spacing' => 'one'],
+        'global_namespace_import' => [
+            'import_classes' => true,
+            'import_constants' => null,
+            'import_functions' => null,
+        ],
         'ordered_imports'            => true,
         'phpdoc_no_alias_tag'        => false,
         'phpdoc_order'               => true,

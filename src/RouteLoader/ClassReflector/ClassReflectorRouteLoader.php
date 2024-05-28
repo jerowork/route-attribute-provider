@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Jerowork\RouteAttributeProvider\RouteLoader\ClassReflector;
 
+use Generator;
 use Jerowork\FileClassReflector\ClassReflectorFactory;
 use Jerowork\RouteAttributeProvider\Api\Route;
 use Jerowork\RouteAttributeProvider\RouteLoader\LoadedRoute;
@@ -32,7 +33,7 @@ final class ClassReflectorRouteLoader implements RouteLoaderInterface
         return $this;
     }
 
-    public function getRoutes() : \Generator
+    public function getRoutes() : Generator
     {
         $reflector = $this->reflectorFactory->create()->addDirectory(...$this->directories);
         foreach ($reflector->reflect()->getClasses() as $class) {
