@@ -8,16 +8,19 @@ on:
 jobs:
     build:
         name: Test build
+        strategy:
+          matrix:
+            php-version: ['8.1', '8.2', '8.3']
         runs-on: ubuntu-latest
         steps:
             - name: Checkout code
               uses: actions/checkout@v2
 
-            - name: Setup PHP 8.0
+            - name: Setup PHP
               uses: shivammathur/setup-php@v2
               with:
-                  php-version: 8.0
-                  tools: composer:v2
+                  php-version: ${{ matrix.php-version }}
+                  tools: composer
 
             - name: Install composer dependencies
               run: composer install --prefer-dist --no-progress --no-suggest
