@@ -6,7 +6,7 @@ filter:
 build:
     environment:
         php:
-            version: 8.0.10
+            version: 8.1
             ini:
                 'xdebug.mode': 'coverage'
     nodes:
