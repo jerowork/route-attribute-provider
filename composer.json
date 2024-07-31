@@ -24,7 +24,7 @@
         "friendsofphp/php-cs-fixer": "^3.0",
         "mockery/mockery": "^1.4",
         "phpmd/phpmd": "^2.10",
-        "phpro/grumphp-shim": "^1.4",
+        "phpro/grumphp-shim": "^1.4 || ^2.0",
         "phpstan/phpstan": "^1.8",
         "phpunit/phpunit": "^9.5 || ^10.0",
         "scrutinizer/ocular": "^1.8",
