@@ -17,7 +17,7 @@
     "require": {
         "php": "^8.1",
         "psr/simple-cache": "^1.0 || ^2.0 || ^3.0",
-        "roave/better-reflection": "^6.57"
+        "roave/better-reflection": "^5.4 || ^6.57"
     },
     "require-dev": {
         "captainhook/captainhook": "^5.25",
@@ -42,7 +42,10 @@
         }
     },
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "platform": {
+            "php": "8.1"
+        }
     },
     "scripts": {
         "cs": "vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.php",
