@@ -1,6 +1,5 @@
 grumphp:
     tasks:
-        composer_normalize: ~
         phpcs:
             standard:
                 - phpcs.xml
