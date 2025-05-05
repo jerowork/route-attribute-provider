@@ -41,6 +41,7 @@ final class RoaveRouterLoader implements RouteLoaderInterface
     public function getRoutes() : Generator
     {
         foreach ($this->fileFinder->getFiles(...$this->directories) as $file) {
+            /** @var non-empty-string $file */
             $reflector = $this->createRoaveReflectorForFile($file);
 
             foreach ($reflector->reflectAllClasses() as $reflectorClass) {
@@ -70,6 +71,9 @@ final class RoaveRouterLoader implements RouteLoaderInterface
         }
     }
 
+    /**
+     * @param non-empty-string $file
+     */
     public function createRoaveReflectorForFile(string $file) : Reflector
     {
         return new DefaultReflector(new SingleFileSourceLocator($file, (new BetterReflection())->astLocator()));

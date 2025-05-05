@@ -13,7 +13,7 @@ final class LoadedRoute implements JsonSerializable
     public function __construct(
         private string $className,
         private string $methodName,
-        private Route $route
+        private Route $route,
     ) {
     }
 
