@@ -1,35 +1,24 @@
 <?php
 
-declare(strict_types=1);
+namespace Jerowork\RouteAttributeProvider\Test\RouteLoader\Roave;
 
-namespace Jerowork\RouteAttributeProvider\Test\RouteLoader\ClassReflector;
-
-use Jerowork\FileClassReflector\FileFinder\RegexIterator\RegexIteratorFileFinder;
-use Jerowork\FileClassReflector\NikicParser\NikicParserClassReflectorFactory;
 use Jerowork\RouteAttributeProvider\Api\RequestMethod;
-use Jerowork\RouteAttributeProvider\RouteLoader\ClassReflector\ClassReflectorRouteLoader;
 use Jerowork\RouteAttributeProvider\RouteLoader\LoadedRoute;
+use Jerowork\RouteAttributeProvider\RouteLoader\Roave\RegexIterator\RegexIteratorFileFinder;
+use Jerowork\RouteAttributeProvider\RouteLoader\Roave\RoaveRouterLoader;
 use Jerowork\RouteAttributeProvider\Test\resources\directory\StubClass3;
 use Jerowork\RouteAttributeProvider\Test\resources\directory\sub\StubClass4;
 use Jerowork\RouteAttributeProvider\Test\resources\StubClass;
 use Jerowork\RouteAttributeProvider\Test\resources\StubClass1;
 use Jerowork\RouteAttributeProvider\Test\resources\StubClass2;
-use PhpParser\NodeTraverser;
-use PhpParser\ParserFactory;
 use PHPUnit\Framework\TestCase;
 use stdClass;
 
-final class ClassReflectorRouteLoaderTest extends TestCase
+final class RoaveRouterLoaderTest extends TestCase
 {
-    public function testItShouldGetLoadedRoutes(): void
+    public function testItShouldGetLoadedRoutes() : void
     {
-        $loader = new ClassReflectorRouteLoader(
-            new NikicParserClassReflectorFactory(
-                new RegexIteratorFileFinder(),
-                (new ParserFactory())->create(ParserFactory::PREFER_PHP7),
-                new NodeTraverser()
-            )
-        );
+        $loader = new RoaveRouterLoader(new RegexIteratorFileFinder());
         $loader->addDirectory(__DIR__ . '/../../resources');
 
         $loadedRoutes = iterator_to_array($loader->getRoutes());
@@ -45,7 +34,7 @@ final class ClassReflectorRouteLoaderTest extends TestCase
         $this->assertSame([RequestMethod::GET], $loadedRoute->getRoute()->getMethods());
         $this->assertNull($loadedRoute->getRoute()->getName());
         $this->assertSame([], $loadedRoute->getRoute()->getMiddleware());
-        
+
         /** @var LoadedRoute $loadedRoute */
         $loadedRoute = $loadedRoutes[1];
 
