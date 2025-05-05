@@ -1,4 +1,4 @@
+/bin-dev/
 /vendor/
-/tools/
 .phpunit.result.cache
 .php-cs-fixer.cache

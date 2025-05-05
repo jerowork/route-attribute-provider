@@ -4,13 +4,10 @@ declare(strict_types=1);
 
 namespace Jerowork\RouteAttributeProvider;
 
-use Jerowork\FileClassReflector\FileFinder\RegexIterator\RegexIteratorFileFinder;
-use Jerowork\FileClassReflector\NikicParser\NikicParserClassReflectorFactory;
 use Jerowork\RouteAttributeProvider\RouteLoader\Cache\CacheRouteLoaderDecorator;
-use Jerowork\RouteAttributeProvider\RouteLoader\ClassReflector\ClassReflectorRouteLoader;
+use Jerowork\RouteAttributeProvider\RouteLoader\Roave\RegexIterator\RegexIteratorFileFinder;
+use Jerowork\RouteAttributeProvider\RouteLoader\Roave\RoaveRouterLoader;
 use Jerowork\RouteAttributeProvider\RouteLoader\RouteLoaderInterface;
-use PhpParser\NodeTraverser;
-use PhpParser\ParserFactory;
 use Psr\SimpleCache\CacheInterface;
 
 final class RouteAttributeConfigurator
@@ -26,13 +23,7 @@ final class RouteAttributeConfigurator
         private RouteAttributeProviderInterface $routeAttributeProvider,
         ?RouteLoaderInterface $routeLoader = null
     ) {
-        $this->routeLoader = $routeLoader ?? new ClassReflectorRouteLoader(
-            new NikicParserClassReflectorFactory(
-                new RegexIteratorFileFinder(),
-                (new ParserFactory())->create(ParserFactory::PREFER_PHP7),
-                new NodeTraverser()
-            )
-        );
+        $this->routeLoader = $routeLoader ?? new RoaveRouterLoader(new RegexIteratorFileFinder());
     }
 
     public function addDirectory(string ...$directories) : self
