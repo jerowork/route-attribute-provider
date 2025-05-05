@@ -21,7 +21,7 @@ final class RouteAttributeConfigurator
 
     public function __construct(
         private RouteAttributeProviderInterface $routeAttributeProvider,
-        ?RouteLoaderInterface $routeLoader = null
+        ?RouteLoaderInterface $routeLoader = null,
     ) {
         $this->routeLoader = $routeLoader ?? new RoaveRouterLoader(new RegexIteratorFileFinder());
     }

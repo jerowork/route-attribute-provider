@@ -56,7 +56,7 @@ final class Route implements JsonSerializable
         string|array $schemes = [],
         ?int $httpPort = null,
         ?int $httpsPort = null,
-        array $options = []
+        array $options = [],
     ) {
         $this->pattern    = $pattern;
         $this->methods    = is_string($method) === true ? [$method] : $method;
