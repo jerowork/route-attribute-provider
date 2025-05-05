@@ -23,7 +23,7 @@
         "captainhook/captainhook": "^5.25",
         "friendsofphp/php-cs-fixer": "^3.0",
         "mockery/mockery": "^1.4",
-        "phpstan/phpstan": "^1.8",
+        "phpstan/phpstan": "^1.8 || ^2.0",
         "phpunit/phpunit": "^9.5 || ^10.0",
         "scrutinizer/ocular": "^1.8",
         "symfony/cache": "^6.0"
