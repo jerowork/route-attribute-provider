@@ -39,10 +39,9 @@ $routeConfigurator
 
 Extended configuration:
 ```php
-use Jerowork\FileClassReflector\FileFinder\RegexIterator\RegexIteratorFileFinder;
-use Jerowork\FileClassReflector\NikicParser\NikicParserClassReflectorFactory;
 use Jerowork\RouteAttributeProvider\RouteAttributeConfigurator;
-use Jerowork\RouteAttributeProvider\RouteLoader\ClassReflector\ClassReflectorRouteLoader;
+use Jerowork\RouteAttributeProvider\RouteLoader\Roave\RegexIterator\RegexIteratorFileFinder;
+use Jerowork\RouteAttributeProvider\RouteLoader\Roave\RoaveRouterLoader;
 use PhpParser\NodeTraverser;
 use PhpParser\ParserFactory;
 // ...
@@ -50,13 +49,7 @@ use PhpParser\ParserFactory;
 // All parts of the configurator can be replaced with a custom implementation
 $routeConfigurator = new RouteAttributeConfigurator(
     new CustomRouteProvider($router), // Implementation of your choice
-    new ClassReflectorRouteLoader(
-        new NikicParserClassReflectorFactory(
-            new RegexIteratorFileFinder(),
-            (new ParserFactory())->create(ParserFactory::PREFER_PHP7),
-            new NodeTraverser()
-        )
-    )
+    new RoaveRouterLoader(new RegexIteratorFileFinder()),
 );
 
 // Multiple directories can be defined
